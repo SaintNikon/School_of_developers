@@ -1,0 +1,30 @@
+     1                                  global _start
+     2                                  section .data
+     3 00000000 6F75747075742E7478-     filename db "output.txt", 0
+     3 00000009 7400               
+     4 0000000B 48656C6C6F2C20576F-     message db "Hello, World!", 10
+     4 00000014 726C64210A         
+     5                                  length equ $ -message
+     6                                  section .bss
+     7 00000000 ????????????????        fd resq 1
+     8                                  section .text
+     9                                  _start:
+    10 00000000 B802000000              mov rax, 2
+    11 00000005 48BF-                   mov rdi, filename
+    11 00000007 [0000000000000000] 
+    12 0000000F BE41020000              mov rsi, 0x241
+    13 00000014 BAA4010000              mov rdx, 0644o
+    14 00000019 0F05                    syscall
+    15 0000001B 48890425[00000000]      mov [fd], rax
+    16 00000023 B801000000              mov rax, 1
+    17 00000028 488B3C25[00000000]      mov rdi, [fd]
+    18 00000030 48BE-                   mov rsi, message
+    18 00000032 [0B00000000000000] 
+    19 0000003A BA0E000000              mov rdx, length
+    20 0000003F 0F05                    syscall
+    21 00000041 B803000000              mov rax, 3
+    22 00000046 488B3C25[00000000]      mov rdi, [fd]
+    23 0000004E 0F05                    syscall
+    24 00000050 B83C000000              mov rax, 60
+    25 00000055 BF00000000              mov rdi, 0
+    26 0000005A 0F05                    syscall
